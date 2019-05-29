@@ -1,0 +1,205 @@
+
+       <div class="card">
+  <div class="card-block card-block-left">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Выберите рейс маршрута</mat-label>
+      <mat-select #station_name class="my-select">
+        <mat-option value="1">Гомель-Брянск</mat-option>
+          <mat-option value="2">Брянск-Гомель</mat-option>
+          <mat-option value="3">Гомель-Вильнюс</mat-option>
+          <mat-option value="4">Вильнюс-Гомель</mat-option>
+          <mat-option value="5">Гомель-Железный Порт</mat-option>
+          <mat-option value="6">Железный Порт-Гомель</mat-option>
+          <mat-option value="7">Гомель-Кёльн</mat-option>
+          <mat-option value="8">Кёльн-Гомель</mat-option>
+          <mat-option value="9">Гомель-Киев</mat-option>
+          <mat-option value="10">Киев-Гомель</mat-option>
+          <mat-option value="11">Гомель-Клинцы</mat-option>
+          <mat-option value="12">Клинцы-Гомель</mat-option>
+          <mat-option value="13">Гомель-Курск</mat-option>
+          <mat-option value="14">Курск-Гомель</mat-option>
+          <mat-option value="15">Гомель-Москва</mat-option>
+          <mat-option value="16">Москва-Гомель</mat-option>
+          <mat-option value="17">Гомель-Новозыбков</mat-option>
+          <mat-option value="18">Новозыбков-Гомель</mat-option>
+          <mat-option value="19">Гомель-Орёл</mat-option>
+          <mat-option value="20">Орёл-Гомель</mat-option>
+          <mat-option value="21">Гомель-Рига</mat-option>
+          <mat-option value="22">Рига-Гомель</mat-option>
+          <mat-option value="23">Гомель-Санкт-Петербург</mat-option>
+          <mat-option value="24">Санкт-Петербург-Гомель</mat-option>
+          <mat-option value="25">Гомель-Херсон</mat-option>
+          <mat-option value="26">Херсон-Гомель</mat-option>
+          <mat-option value="27">Гомель-Чернигов</mat-option>
+          <mat-option value="28">Чернигов-Гомель</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Выберите дату выезда</mat-label>
+      <mat-select #day>
+          <mat-option value="27.05.2019 Понедельник">27.05.2019 Понедельник</mat-option>
+          <mat-option value="28.05.2019 Вторник">28.05.2019 Вторник</mat-option>
+          <mat-option value="29.05.2019 Среда">29.05.2019 Среда</mat-option>
+          <mat-option value="30.05.2019 Четверг">30.05.2019 Четверг</mat-option>
+          <mat-option value="31.05.2019 Пятница">31.05.2019 Пятница</mat-option>
+          <mat-option value="01.06.2019 Суббота">01.06.2019 Суббота</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="postTicketFlights(station_name.value, day.value)" class="card-block__btn">Показать</button>
+  </div>
+
+  <div class="card-block card-block-right">
+    <div class="table" *ngIf='flights'>
+      <table mat-table matSort[dataSource]="dataSource">
+        <ng-container matColumnDef="price">
+          <th class="priceheader" mat-header-cell *matHeaderCellDef> Цена </th>
+          <td class="price" mat-cell *matCellDef="let flight;"><span> {{ flight.price }} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="time">
+          <th class="timeheader" mat-header-cell *matHeaderCellDef> Время отправления </th>
+          <td class="time" mat-cell *matCellDef="let flight;"><span> {{ flight.time }} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="bus_number">
+          <th class="bus_numberheader" mat-header-cell *matHeaderCellDef> Номер автобуса </th>
+          <td class="bus_number" mat-cell *matCellDef="let flight;"><span> {{ flight.bus_number }} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="mark">
+          <th class="markheader" mat-header-cell *matHeaderCellDef> Тип автобуса </th>
+          <td class="mark" mat-cell *matCellDef="let flight;"><span> {{ flight.mark }} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="col_seats">
+          <th class="col_seatsheader" mat-header-cell *matHeaderCellDef> Количество мест </th>
+          <td class="col_seats" mat-cell *matCellDef="let flight;"><span> {{ flight.col_seats }} </span></td>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+ <!--
+   <div class="container">
+    <div class="row">
+        <div class="col-md-6 mt-5 mx-auto">
+       <div class="form-group">
+        <select class="custom-select" required>
+          <option value="">Выберите рейс маршрута</option>
+          <option *ngFor="let schedule of schedules" [value]="schedule">
+            {{schedule.station_name}}
+        </select>
+        <div class="invalid-feedback">Please choose a schedule</div>
+      </div>
+
+
+             <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Выберите рейс маршрута</mat-label>
+         <mat-select [formControl]="schedule" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let schedule of schedules" [value]="schedule">
+            {{schedule.station_name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="schedule.hasError('required')">Please choose a schedule</mat-error>
+       </mat-form-field>
+
+
+          <mat-option value="1">Гомель-Брянск</mat-option>
+          <mat-option value="2">Брянск-Гомель</mat-option>
+          <mat-option value="3">Гомель-Вильнюс</mat-option>
+          <mat-option value="4">Вильнюс-Гомель</mat-option>
+          <mat-option value="5">Гомель-Железный Порт</mat-option>
+          <mat-option value="6">Железный Порт-Гомель</mat-option>
+          <mat-option value="7">Гомель-Кёльн</mat-option>
+          <mat-option value="8">Кёльн-Гомель</mat-option>
+          <mat-option value="9">Гомель-Киев</mat-option>
+          <mat-option value="10">Киев-Гомель</mat-option>
+          <mat-option value="11">Гомель-Клинцы</mat-option>
+          <mat-option value="12">Клинцы-Гомель</mat-option>
+          <mat-option value="13">Гомель-Курск</mat-option>
+          <mat-option value="14">Курск-Гомель</mat-option>
+          <mat-option value="15">Гомель-Москва</mat-option>
+          <mat-option value="16">Москва-Гомель</mat-option>
+          <mat-option value="17">Гомель-Новозыбков</mat-option>
+          <mat-option value="18">Новозыбков-Гомель</mat-option>
+          <mat-option value="19">Гомель-Орёл</mat-option>
+          <mat-option value="20">Орёл-Гомель</mat-option>
+          <mat-option value="21">Гомель-Рига</mat-option>
+          <mat-option value="22">Рига-Гомель</mat-option>
+          <mat-option value="23">Гомель-Санкт-Петербург</mat-option>
+          <mat-option value="24">Санкт-Петербург-Гомель</mat-option>
+          <mat-option value="25">Гомель-Херсон</mat-option>
+          <mat-option value="26">Херсон-Гомель</mat-option>
+          <mat-option value="27">Гомель-Чернигов</mat-option>
+          <mat-option value="28">Чернигов-Гомель</mat-option>
+      </mat-select>
+    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Выберите дату выезда</mat-label>
+         <mat-select #schedule>
+            <mat-option value="Понедельник">Понедельник</mat-option>
+            <mat-option value="Вторник">Вторник</mat-option>
+            <mat-option value="Среда">Среда</mat-option>
+            <mat-option value="Четверг">Четверг</mat-option>
+            <mat-option value="Пятница">Пятница</mat-option>
+</div>
+    <div class="col-md-6 mt-5 mx-auto">
+    <div class="form-group">
+            <select class="custom-select" required>
+              <option value="">Выберите дату маршрута</option>
+              <option *ngFor="let day of days" [value]="day">
+                {{day.day}}
+            </select>
+            <div class="invalid-feedback">Please choose a time</div>
+          </div>
+
+
+    </div>
+    <div class="col-md-12 mt-12 mx-auto">
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="postData(shedule.value)">Выбрать</button>
+  </div>
+
+
+  <div class='table' *ngIf='elements'>
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <table mat-table[dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="bus_number">
+      <th mat-header-cell *matHeaderCellDef> Bus Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.bus_number}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="mark">
+      <th mat-header-cell *matHeaderCellDef> Mark </th>
+      <td mat-cell *matCellDef="let element"> {{element.mark}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="col_seats">
+      <th mat-header-cell *matHeaderCellDef> Col Seats </th>
+      <td mat-cell *matCellDef="let element"> {{element.col_seats}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+      </div>
+    </div>
+
+  -->
