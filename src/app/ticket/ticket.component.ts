@@ -27,6 +27,9 @@ export class TicketsComponent implements OnInit {
     console.log(this, this.flights)
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   postTicketFlights(station_name: string, day: string) {
     this.ticketService.postData(station_name)
