@@ -33,9 +33,10 @@
           <mat-option value="27">Гомель-Чернигов</mat-option>
           <mat-option value="28">Чернигов-Гомель</mat-option>
       </mat-select>
+      <mat-error *ngIf="station_name.hasError('required')">Пожалуйста выберите рейс </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Выберите дату выезда</mat-label>
+      <mat-label>Выберите дату отЪезда</mat-label>
       <mat-select #day>
           <mat-option value="27.05.2019 Понедельник">27.05.2019 Понедельник</mat-option>
           <mat-option value="28.05.2019 Вторник">28.05.2019 Вторник</mat-option>
@@ -44,6 +45,7 @@
           <mat-option value="31.05.2019 Пятница">31.05.2019 Пятница</mat-option>
           <mat-option value="01.06.2019 Суббота">01.06.2019 Суббота</mat-option>
       </mat-select>
+      <mat-error *ngIf="day.hasError('required')">Пожалуйста выберите день </mat-error>
     </mat-form-field>
     <button mat-stroked-button color="primary" (click)="postTicketFlights(station_name.value, day.value)" class="card-block__btn">Показать</button>
   </div>
